@@ -19,7 +19,7 @@ def home():
     featuredImage = mongo.db.featuredImage.find_one()
     weather = mongo.db.marsWeather.find_one()
     marsFacts = mongo.db.marsFacts.find_one()
-    marsHemispheres = mongo.db.marsHemispheres.find_one()
+    marsHemispheres = mongo.db.marsHemispheres.find()
 
     # Return template and data
     return render_template("index.html", 
@@ -33,29 +33,27 @@ def home():
 # Route that will trigger the scrape function
 @app.route("/scrape")
 def scrape():
-    # # Scrape for latest Mars news and store in mongo database
-    # latest_mars_news = scrape_mars.latest_mars_news()
-    # mongo.db.latestMarsNews.update({}, latest_mars_news, upsert=True)
+    # Scrape for latest Mars news and store in mongo database
+    latest_mars_news = scrape_mars.latest_mars_news()
+    mongo.db.latestMarsNews.update({}, latest_mars_news, upsert=True)
 
-    # # Scrape latest featured image and store in mongo database
-    # featured_image = scrape_mars.featured_image()
-    # mongo.db.featuredImage.update({}, featured_image, upsert=True)
+    # Scrape latest featured image and store in mongo database
+    featured_image = scrape_mars.featured_image()
+    mongo.db.featuredImage.update({}, featured_image, upsert=True)
 
-    # # Scrape latest Mars weather and store in mongo database
-    # weather = scrape_mars.current_mars_weather()
-    # mongo.db.marsWeather.update({}, weather, upsert=True)
+    # Scrape latest Mars weather and store in mongo database
+    weather = scrape_mars.current_mars_weather()
+    mongo.db.marsWeather.update({}, weather, upsert=True)
 
-    # # Scrape Mars facts and store in mongo database
-    # mars_facts = scrape_mars.mars_facts()
-    # mongo.db.marsFacts.update({}, mars_facts, upsert=True)
+    # Scrape Mars facts and store in mongo database
+    mars_facts = scrape_mars.mars_facts()
+    mongo.db.marsFacts.update({}, mars_facts, upsert=True)
 
     # Scrape Mars hemispheres and store in mongo database
     mars_hemispheres = scrape_mars.mars_hemispheres()
+    mongo.db.marsHemispheres.drop() # Refresh with new collection
+    mongo.db.marsHemispheres.insert_many(mars_hemispheres)
     
-    # mongo.db.marsHemispheres.update({}, value, upsert=True)
-    mongo.db.marsHemispheres.update_many({}, mars_hemispheres, upsert=True)
-    
-        
     # Redirect back to home page
     return redirect("/")
 

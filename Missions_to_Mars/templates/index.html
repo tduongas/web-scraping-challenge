@@ -30,7 +30,7 @@
     </div>
 
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-8 ">
         <h2><b>Featured Mars Image</b></h2>
         <img src="{{ featuredImage.img_url }}" alt="Featured Image">
       </div>
@@ -49,21 +49,35 @@
     </div>
 
     <div class="row">
+      <div class="col-md-12 pt-8 pb-8 mt-5">&nbsp;</div>
+    </div>
+    <div class="row">
       <div class="col-md-12 pt-8 pb-8">&nbsp;</div>
     </div>
     
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-12 hemBorder">
         <h2 style="text-align: center;"><b>Mars Hemisphere</b></h2>
         <div>
           <div class="row">
-            {% if marsHemispheres.title is defined %}  
-              {% for key in marsHemispheres %}
-                {% if key%2 %}
-                    <p>{{ marsHemispheres[key].title }}</p>
+            {% if marsHemispheres[0].title is defined %}  
+              {% set count = namespace(value=0)%}
+              {% for value in marsHemispheres %}
+                {% if count.value % 2 == 0 %}
+                  <div class="row"></div>
+                    <div class="col-md-6 gridPadding">
+                      <img src="{{ value.image_url }}" alt="Featured Image" class="hemisphereImg">
+                      <h4>{{ value.title  }}</h4>
+                    </div>
                 {% else %}
-                    <p>{{ marsHemispheres[key].image_url }}</p>
+                    <div class="col-md-6 gridPadding">
+                      <img src="{{ value.image_url }}" alt="Featured Image" class="hemisphereImg">
+                      <h4>{{ value.title  }}</h4>
+                    </div>
+                  </div>
                 {% endif %}
+                  
+                {% set count.value = count.value + 1 %}
               {% endfor %}
             {% endif %}  
           </div>
@@ -71,6 +85,12 @@
       </div>
     </div>
 
+    <div class="row">
+      <div class="col-md-12 pt-8 pb-8">&nbsp;</div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 pt-8 pb-8">&nbsp;</div>
+    </div>
 
 
   </div>
