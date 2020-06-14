@@ -1,0 +1,13 @@
+h1 {
+    color: blue;
+}
+
+.drop-shadow{
+    box-shadow: 0px 7px 5px #888888;
+    padding: 10px 10px 10px 10px;
+    z-index:999;
+}
+
+.gridPadding{
+    padding: 10px 10px 10px 10px;
+}

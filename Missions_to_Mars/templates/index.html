@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Mission to Mars</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../static/css/style.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="jumbotron text-center">
+      <h1>Mission to Mars</h1>
+      <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a></p>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <h2><b>Latest Mars News</b></h2>
+        <h3>{{ latestMarsNews.title }}</h3>
+        <p>{{ latestMarsNews.paragraph }}</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 pb-5">&nbsp;</div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
+        <h2><b>Featured Mars Image</b></h2>
+        <img src="{{ featuredImage.img_url }}" alt="Featured Image">
+      </div>
+      <div class="col-md-4">
+        <h2>&nbsp;</h2>
+        <div class="pt-3 drop-shadow">
+          <h4><b>Current Weather on Mars</b></h4>
+          <p>{{ weather.text }}</p>
+        </div>
+        <div class="row">&nbsp;</div>
+        <div class="pt-3 drop-shadow">
+          <h4><b>Mars Facts</b></h4>
+          <div>{{ marsFacts.html | safe }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 pt-8 pb-8">&nbsp;</div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-12">
+        <h2 style="text-align: center;"><b>Mars Hemisphere</b></h2>
+        <div>
+          <div class="row">
+            {% if marsHemispheres.title is defined %}  
+              {% for key in marsHemispheres %}
+                {% if key%2 %}
+                    <p>{{ marsHemispheres[key].title }}</p>
+                {% else %}
+                    <p>{{ marsHemispheres[key].image_url }}</p>
+                {% endif %}
+              {% endfor %}
+            {% endif %}  
+          </div>
+        </div> 
+      </div>
+    </div>
+
+
+
+  </div>
+  </div>
+</body>
+
+</html>
